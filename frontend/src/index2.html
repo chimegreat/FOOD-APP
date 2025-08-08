@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Store Selector UI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: #fdf6f8;
+    }
+
+    .layout {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Sidebar Placeholder */
+    .sidebar {
+      width: 250px;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+
+    .sidebar .block {
+      height: 40px;
+      background-color: #ddd;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    /* Main Content Area */
+    .main {
+      flex: 1;
+      padding: 20px 40px;
+      position: relative;
+    }
+
+    /* Navbar Placeholder */
+    .navbar {
+      height: 60px;
+      background-color: white;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    /* Store Select Button */
+    .store-selector {
+      position: relative;
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .select-btn {
+      padding: 12px 20px;
+      background-color: white;
+      border: 1.5px solid #ff1f51;
+      color: #ff1f51;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      min-width: 250px;
+      text-align: center;
+    }
+
+    /* Modal Overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Store List Panel */
+    .store-list {
+      background-color: #fdf6f8;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      max-width: 900px;
+      width: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .store-item {
+      padding: 10px 20px;
+      background-color: white;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      min-width: 180px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .store-item:hover {
+      border-color: #ff1f51;
+      color: #ff1f51;
+    }
+
+    .store-item.active {
+      color: #ff1f51;
+      border: 1.5px solid #ff1f51;
+      font-weight: 600;
+    }
+
+    /* Dashboard Placeholder Cards */
+    .dashboard-placeholder {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card-placeholder {
+      height: 120px;
+      background-color: #fdf6f8;
+      border-radius: 12px;
+      border: 1px solid #f0dce2;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-placeholder {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <di v class="layout">
+    <!-- Sidebar Placeholder -->
+    <div class="sidebar">
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+      <!-- Navbar Placeholder -->
+      <div class="navbar">
+        <div class="block" style="width: 200px; height: 30px; background: #eee;"></div>
+        <div class="block" style="width: 80px; height: 30px; background: #eee;"></div>
+      </div>
+
+      <!-- Store Selector -->
+      <div class="store-selector">
+        <div class="select-btn" id="storeBtn">Shoprite Garden City Mall</div>
+      </div>
+
+      <!-- Dashboard Placeholder Cards -->
+      <div class="dashboard-placeholder">
+        <div class="card-placeholder"></div>
+        <div class="card-placeholder"></div>
+        <div class="card-placeholder"></div>
+        <div class="card-placeholder"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay + Store List Modal -->
+  <div class="overlay" id="overlay">
+    <div class="store-list" id="storeList">
+      <div class="store-item active">Shoprite Garden City Mall</div>
+      <div class="store-item">Shoprite Enugu</div>
+      <div class="store-item">Shoprite Delta Mall</div>
+      <div class="store-item">Shoprite Ikeja</div>
+      <div class="store-item">Shoprite Owerri</div>
+      <div class="store-item">Shoprite Akure</div>
+      <div class="store-item">Shoprite Jabi Lake</div>
+      <div class="store-item">Shoprite Ibadan</div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    const storeBtn = document.getElementById('storeBtn');
+    const overlay = document.getElementById('overlay');
+    const storeList = document.getElementById('storeList');
+    const storeItems = document.querySelectorAll('.store-item');
+
+    storeBtn.addEventListener('click', () => {
+      overlay.style.display = 'flex';
+    });
+
+    storeItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Remove active from all
+        storeItems.forEach(el => el.classList.remove('active'));
+
+        // Add active to clicked
+        item.classList.add('active');
+
+        // Update button text
+        storeBtn.textContent = item.textContent;
+
+        // Hide overlay
+        overlay.style.display = 'none';
+      });
+    });
+
+    // Close when clicking outside the store list
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.style.display = 'none';
+      }
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+PS C:\Users\Great Okoro\Downloads\FOOD-DEL\backend> npm i express mongoose jsonwetoken bcrypt cors dotenv body-parser multer stripe validator nodemon
+
+
+went mongdb atlas 
+sign in with google
+
+already had organisation 
+So We Created A New Project
+
+named the project greate stack something 
+
+created cluster
+
+Google Cloud 
+choose germany west 1 
+ 
+select create deployment 
+
+
+then 
+change password
+Create Database User first 
+
+before choose connection method
+
+click on driver 
+
+then change from node.js to mongoose 
+
+copy the connection string 
+something like this mongodb+srv://okorogreat46:youknowitwasyou@cluster0.a9czops.mongodb.net/?
+
+
+click on done 
+
+go to network access 
+
+create a new ip addresss 0.0.0.0
+
+delete the old one
+
+
+
+FROM SCRACTH ALWAYS DONT FORGET TO ADD 
+DB.JS
+
+REWATCH STARTING VIDEOS
+
+TO PREVENT REPTITION OR RECREATING OF MODELS 
+USE 
+const foodModel = mongoose.models.food || mongoose.model("food", foodSchema)
+
+
+we create the schema and the modesl inside the models folder
+from the models you can create the controllers inside the controllers folder we import the models
+fromt the controllers you can now creates the routers or routes inside teh routes folder we import the controllers
+
+
+HOW TO CREATE THE FILE OR IMAGE STORAGE 
+// Image Storage Engine 
+
+const mystorage = multer.diskStorage({
+    destination:"uploads", // FOLDER NAME 
+    filename:(req,file,cb)=>{
+        return cb(null, `${Date.now()}${file.originalname}`)
+    }
+})
+
+    filename:(req,file,cb)=>{
+        return cb(null, `${Date.now()}${file.originalname}`)
+    }
+Date.now() : used to add timeStamps 
+file.originalname use specify or automatical add specifed surname
+
+
+*************
+const upload = multer({ storage: myStorage });
+
+final action this uploads the file
+
+
+
+
+MADE USE OF MINIMIZE FALSE IS USED WHEN EMPTY DATA IS SENT 
+E.G
