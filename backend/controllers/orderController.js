@@ -1,5 +1,5 @@
 import orderModel from "../models/orderModel.js";
-import userModel from "../models/userModel.js";
+import userModel from "../models/UserModel.js";
 
 import paystack from "paystack-api";
 const paystackClient = paystack(process.env.PAYSTACK_SECRET_KEY);
