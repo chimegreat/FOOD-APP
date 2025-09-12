@@ -3,6 +3,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;     /* makes it stick to the top when scrolling */
+    z-index: 1000;  /* ensures it stays above other elements */
+    background: white;
 }
 .navbar .logo{
     width: 150px;
