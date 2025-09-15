@@ -5,28 +5,32 @@ import { StoreContext } from "../../Context/StoreContext";
 import axios from "axios";
 
 const Verify = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const success = searchParams.get("success");
   const orderId = searchParams.get("orderId");
   const reference = searchParams.get("reference");
 
   const { url } = useContext(StoreContext);
-
-  console.log(success, orderId);
-
   const navigate = useNavigate();
 
   const verifyPayment = async () => {
-    const response = await axios.post(url + "/api/order/verify", {
-      orderId,
-      reference,
-    });
-    if (response.data.success) {
-      navigate("/myorders");
-    } else {
+    try {
+      const response = await axios.post(`${url}/api/order/verify`, {
+        orderId,
+        reference,
+      });
+
+      if (response.data.success) {
+        navigate("/myorders");
+      } else {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Verification error:", error);
       navigate("/");
     }
   };
+
   useEffect(() => {
     if (success === "true" && orderId && reference) {
       verifyPayment();
@@ -36,6 +40,7 @@ const Verify = () => {
   return (
     <div className="verify">
       <div className="spinner"></div>
+      <p>Verifying your payment, please wait...</p>
     </div>
   );
 };
