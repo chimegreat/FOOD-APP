@@ -28,8 +28,11 @@ const Verify = () => {
     }
   };
   useEffect(() => {
-    verifyPayment();
-  });
+    if (success === "true" && orderId && reference) {
+      verifyPayment();
+    }
+  }, [success, orderId, reference]);
+
   return (
     <div className="verify">
       <div className="spinner"></div>
